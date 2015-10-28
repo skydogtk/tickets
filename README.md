@@ -1,5 +1,5 @@
 # FJ ServiceDesk System
-Projeto de ServiceDesk desenvolvido como atividade da disciplina de Desenvolvimento de Software III do curso de Sistemas de Informação da Unisinos
+Projeto de sistema de ServiceDesk desenvolvido como atividade da disciplina de _Desenvolvimento de Software III_ do curso de  graduação em Sistemas de Informação da [Unisinos](http://www.unisinos.br/).
 
 ## Alunos:
 * Fabrício Costa da Silva
