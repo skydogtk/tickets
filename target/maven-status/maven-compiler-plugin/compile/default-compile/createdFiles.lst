@@ -1,8 +1,11 @@
 br\unisinos\siead\ds3\ticket\annotation\Authenticated.class
 br\unisinos\siead\ds3\ticket\dao\PapelDAO.class
+br\unisinos\siead\ds3\ticket\jdbc\ConnectionSettingsFromEnv.class
+br\unisinos\siead\ds3\ticket\jdbc\DBType.class
 br\unisinos\siead\ds3\ticket\security\filter\RestAuthenticationFilterFactory.class
 br\unisinos\siead\ds3\ticket\security\filter\RestAuthenticationFilterFactory$RestAuthenticationFilter.class
 br\unisinos\siead\ds3\ticket\security\service\AuthenticationService.class
+br\unisinos\siead\ds3\ticket\jdbc\ConnectionSettingsFromEnv$1.class
 br\unisinos\siead\ds3\ticket\jdbc\ConnectionSettingsProvider.class
 br\unisinos\siead\ds3\ticket\dto\Usuario.class
 br\unisinos\siead\ds3\ticket\dao\UsuarioDAO.class
@@ -18,3 +21,4 @@ br\unisinos\siead\ds3\ticket\jdbc\ConnectionSettingsFromProperties.class
 br\unisinos\siead\ds3\ticket\dto\Papel.class
 br\unisinos\siead\ds3\ticket\dto\Recurso.class
 br\unisinos\siead\ds3\ticket\jdbc\DBConnectionFactory.class
+br\unisinos\siead\ds3\ticket\api\AuthResource.class

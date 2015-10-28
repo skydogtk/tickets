@@ -11,8 +11,9 @@ import javax.ws.rs.core.Response;
 import br.unisinos.siead.ds3.ticket.annotation.Authenticated;
 import br.unisinos.siead.ds3.ticket.security.service.AuthenticationService;
 import br.unisinos.siead.ds3.ticket.dto.Usuario;
-import br.unisinos.siead.ds3.ticket.jdbc.ConnectionSettingsFromProperties;
+import br.unisinos.siead.ds3.ticket.jdbc.ConnectionSettingsFromEnv;
 import br.unisinos.siead.ds3.ticket.jdbc.DBConnectionFactory;
+import br.unisinos.siead.ds3.ticket.jdbc.DBType;
 import br.unisinos.siead.ds3.ticket.security.AuthType;
 import static br.unisinos.siead.ds3.ticket.security.AuthType.DENNY_ALL_METHOD;
 import static br.unisinos.siead.ds3.ticket.security.AuthType.PERMIT_ALL_CLASS;
@@ -94,7 +95,7 @@ public class RestAuthenticationFilterFactory implements ResourceFilterFactory {
             Usuario usuario = null;
 
             try {
-                con = new DBConnectionFactory(new ConnectionSettingsFromProperties()).getConnection();
+                con = new DBConnectionFactory(new ConnectionSettingsFromEnv(DBType.POSTGRESQL)).getConnection();
                 request.getProperties().put("conexao", con);
             } catch (Exception ex) {
                 throw new WebApplicationException(Response.Status.UNAUTHORIZED);
