@@ -8,13 +8,27 @@
  * Controller of yapp
  */
 angular.module('yapp')
-  .controller('LoginCtrl', function($scope, $location) {
+        .controller('LoginCtrl', function ($scope, $location, md5, AuthenticationService) {
 
-    $scope.submit = function() {
+            $scope.email = '';
+            $scope.senha = '';
+            $scope.hash = '';
 
-      $location.path('/dashboard');
+            $scope.submit = function () {
 
-      return false;
-    }
+                var hashSenha = md5.createHash($scope.senha);
+                AuthenticationService.Login($scope.email, hashSenha, function (response) {
+                    if (response.sucesso) {
+                        AuthenticationService.SetCredentials($scope.email, hashSenha, response.nome);
+                        $location.path('/dashboard');
+//                        $window.location.href = "index.html";
+                    } else {
+//                        $('span', '.alert-danger', $('.login-form')).text(response.mensagem);
+//                        $('.alert-danger', $('.login-form')).show();
+                    }
+                });
 
-  });
+                return false;
+            }
+
+        });
