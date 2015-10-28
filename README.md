@@ -6,4 +6,4 @@ Projeto de ServiceDesk desenvolvido como atividade da disciplina de Desenvolvime
 * João Korb
  
 ## Endereço de testes:
-[http://ticket-fabriccosta.rhcloud.com/|http://ticket-fabriccosta.rhcloud.com/]
+http://ticket-fabriccosta.rhcloud.com/
