@@ -15,4 +15,4 @@ http://ticket-fabriccosta.rhcloud.com/
 [Java](http://www.oracle.com/br/java/overview/index.html)|![Apache Tomcat](https://upload.wikimedia.org/wikipedia/en/8/88/Java_logo.png)
 [OpenShift](https://www.openshift.com/)|![OpenShift](https://upload.wikimedia.org/wikipedia/en/3/3a/OpenShift-LogoType.svg)
 [PostgreSQL](http://www.postgresql.org/)|![PostgreSQL](https://wiki.postgresql.org/images/3/30/PostgreSQL_logo.3colors.120x120.png)
-[Tomcat](http://tomcat.apache.org/)|![Tomcat](https://tomcat.apache.org/images/tomcat.png)
+[Tomcat](http://tomcat.apache.org/)|![Tomcat](https://upload.wikimedia.org/wikipedia/commons/7/7b/Tomcat-logo.svg)
