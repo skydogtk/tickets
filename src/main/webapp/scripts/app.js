@@ -78,9 +78,9 @@ angular
                     if ($rootScope.globals.currentUser) {
                         $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
                     }
-//            if (toState.data.loginReq && !$rootScope.me.loggedIn) {
-                    if (toState.data.loginReq && window.location.href.indexOf("login") === -1 && !$rootScope.globals.currentUser) {
-                        $window.location.href = "login.html";
+                    if (window.location.href.indexOf("login") === -1 && !$rootScope.globals.currentUser) {
+                        event.preventDefault();
+                        $location.path('/login');
                     }
                 });
             }])
