@@ -15,8 +15,13 @@ angular.module('yapp')
             $rootScope.globals = $cookieStore.get('globals') || {};
             $scope.hash = md5.createHash($rootScope.globals.currentUser.email);
 
-            $scope.recursos = [];
+            $scope.usuario = {};
+            $http.get('api/usuarios/eu')
+                    .success(function (response) {
+                        $scope.usuario = response;
+                    });
 
+            $scope.recursos = [];
             $http.get('api/recursos')
                     .success(function (response) {
                         $scope.recursos = response;

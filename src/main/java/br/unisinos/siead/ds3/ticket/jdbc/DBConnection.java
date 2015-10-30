@@ -33,7 +33,7 @@ public abstract class DBConnection {
     }
 
     protected Connection createConnection() throws Exception {
-        LOGGER.error("Criando conexão");
+        LOGGER.debug("Criando conexão");
         Connection con = null;
         try {
             con = DriverManager.getConnection(url, usuario, senha);
