@@ -12,8 +12,8 @@ public class ConnectionSettingsFromEnv implements ConnectionSettingsProvider {
 
     private final DBType dbType;
 
-    public ConnectionSettingsFromEnv(DBType dbType) throws Exception {
-        this.dbType = dbType;
+    public ConnectionSettingsFromEnv() throws Exception {
+        this.dbType = DBType.valueOf(System.getenv("TICKET_DB_VENDOR"));
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ConnectionSettingsFromEnv implements ConnectionSettingsProvider {
                 String SENHA = System.getenv("OPENSHIFT_POSTGRESQL_DB_PASSWORD");
                 String DB_NAME = System.getenv("OPENSHIFT_APP_NAME");
                 String DRIVER = "org.postgresql.Driver";
-                String URL = "jdbc://" + HOST + ":" + PORT + "/" + DB_NAME;
+                String URL = "jdbc:postgresql://" + HOST + ":" + PORT + "/" + DB_NAME;
 
                 dados.setDriver(DRIVER);
                 dados.setSenha(SENHA);

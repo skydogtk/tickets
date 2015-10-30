@@ -26,27 +26,27 @@ angular
 
                             /* Dummy authentication for testing, uses $timeout to simulate api call
                              ----------------------------------------------*/
-                            $timeout(function () {
-                                console.log("teste");
-                                console.log(email);
-                                console.log(senha);
-                                console.log(email === 'skydogtk@gmail.com' && senha === '202cb962ac59075b964b07152d234b70');
-                                var response = {sucesso: (email === 'skydogtk@gmail.com' && senha === '202cb962ac59075b964b07152d234b70')};
-                                if (response.sucesso) {
-                                    response.nome = 'Fabrício';
-                                    response.mensagem = 'Ok';
-                                } else {
-                                    response.mensagem = 'Usuário ou senha incorretos';
-                                }
-                                console.log(response);
-                                callback(response);
-                            }, 1000);
+//                            $timeout(function () {
+//                                console.log("teste");
+//                                console.log(email);
+//                                console.log(senha);
+//                                console.log(email === 'skydogtk@gmail.com' && senha === '202cb962ac59075b964b07152d234b70');
+//                                var response = {sucesso: (email === 'skydogtk@gmail.com' && senha === '202cb962ac59075b964b07152d234b70')};
+//                                if (response.sucesso) {
+//                                    response.nome = 'Fabrício';
+//                                    response.mensagem = 'Ok';
+//                                } else {
+//                                    response.mensagem = 'Usuário ou senha incorretos';
+//                                }
+//                                console.log(response);
+//                                callback(response);
+//                            }, 1000);
 
-//                            $http.post('api/auth', {email: email, senha: senha})
-//                                    .success(function (response) {
-//                                        callback(response);
-//                                    });
-                        };
+                            $http.post('api/auth', {email: email, senha: senha})
+                                    .success(function (response) {
+                                        callback(response);
+                                    });
+                        };;
 
                         service.SetCredentials = function (email, senha, nome) {
                             var authdata = base64.encode(email + ':' + senha);
