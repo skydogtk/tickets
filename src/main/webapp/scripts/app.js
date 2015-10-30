@@ -14,7 +14,9 @@ angular
             'ngAnimate',
             'ngCookies',
             'ab-base64',
-            'angular-md5'
+            'angular-md5',
+            'ngTable',
+            'angularModalService'
         ])
 
         .factory('AuthenticationService',
@@ -46,7 +48,8 @@ angular
                                     .success(function (response) {
                                         callback(response);
                                     });
-                        };;
+                        };
+                        ;
 
                         service.SetCredentials = function (email, senha, nome) {
                             var authdata = base64.encode(email + ':' + senha);
@@ -111,14 +114,15 @@ angular
                         parent: 'dashboard',
                         templateUrl: 'views/dashboard/chamados.html'
                     })
-                    .state('usuarios', {
-                        url: '/usuarios',
-                        parent: 'dashboard',
-                        templateUrl: 'views/dashboard/usuarios.html'
-                    })
                     .state('relatorios', {
                         url: '/relatorios',
                         parent: 'dashboard',
                         templateUrl: 'views/dashboard/relatorios.html'
+                    })
+                    .state('usuarios', {
+                        url: '/usuarios',
+                        parent: 'dashboard',
+                        templateUrl: 'views/dashboard/usuarios.html',
+                        controller: 'UsuariosCtrl'
                     });
         });

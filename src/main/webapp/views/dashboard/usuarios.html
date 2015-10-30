@@ -1,14 +1,27 @@
 <div>
-<!--	<a ui-sref="overview" class="pull-right btn btn-primary btn-outline btn-rounded">Back to Overview</a>-->
-	<h2>Usuários <small></small></h2>
-	<span class="glyphicon glyphicon-user bg-fade"></span>
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Add Charts here</h1>
-			<p>You can use C3.js or Chart.js</p>
-			<p>
-				<a class="btn btn-primary btn-lg btn-outline btn-rounded">Learn more</a>
-			</p>
-		</div>
-	</div>
+    <!--	<a ui-sref="overview" class="pull-right btn btn-primary btn-outline btn-rounded">Back to Overview</a>-->
+    <h2>Usuários <small></small></h2>
+    <!--<span class="glyphicon glyphicon-user bg-fade"></span>-->
+    <div class="jumbotron">
+        <div class="container">
+            <p>
+                <a class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="showModal()">Adicionar</a>    
+            </p>
+            <table ng-table="param" class="table">
+                <tr ng-repeat="usuario in usuarios">
+                    <td data-title="'Código'" sortable="'id'">{{usuario.id|number}}</td>
+                    <td data-title="'Nome'" sortable="'nome'">{{usuario.nome}}</td>
+                    <td data-title="'E-mail'" sortable="'email'">{{usuario.email}}</td>
+                    <td data-title="'Papel'" sortable="'papel.desc'">{{usuario.papel.desc}}</td>
+                    <td data-title="'Ativo'" sortable="'ativo'">{{usuario.ativo}}</td>
+                    <td data-title="'Ação'">
+                        <a class="btn btn-circle btn-icon-only btn-default" ng-click="showModal(usuario)">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
 </div>

@@ -25,7 +25,7 @@ public class PapelDAO {
     }
 
     public Papel findById(int id) throws SQLException {
-        String sql = "SELECT * FROM papel WHERE id = ?;";
+        String sql = "SELECT * FROM papel WHERE id = ? ORDER BY descricao;";
         Papel papel;
         try (PreparedStatement pst = con.prepareStatement(sql)) {
             pst.setInt(1, id);
