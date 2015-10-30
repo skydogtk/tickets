@@ -4,7 +4,6 @@ public class Recurso {
 
     private int id;
     private String referencia;
-    private String icone;
     private String titulo;
     private boolean ativo;
 
@@ -22,14 +21,6 @@ public class Recurso {
 
     public void setReferencia(String referencia) {
         this.referencia = referencia;
-    }
-
-    public String getIcone() {
-        return icone;
-    }
-
-    public void setIcone(String icone) {
-        this.icone = icone;
     }
 
     public String getTitulo() {
@@ -50,6 +41,6 @@ public class Recurso {
 
     @Override
     public String toString() {
-        return "Recurso{" + "id=" + id + ", referencia=" + referencia + ", icone=" + icone + ", titulo=" + titulo + ", ativo=" + ativo + '}';
+        return "Recurso{" + "id=" + id + ", referencia=" + referencia + ", titulo=" + titulo + ", ativo=" + ativo + '}';
     }
 }
