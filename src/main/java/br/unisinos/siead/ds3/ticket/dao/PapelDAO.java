@@ -45,7 +45,7 @@ public class PapelDAO {
         LOGGER.debug("PapelDAO.getALl()");
         List<Papel> papeis = new ArrayList<>();
 
-        String sql = "SELECT * FROM papel;";
+        String sql = "SELECT * FROM papel ORDER BY descricao;";
         try (PreparedStatement pst = con.prepareStatement(sql)) {
             ResultSet rs = pst.executeQuery();
             

@@ -80,26 +80,26 @@ public class UsuarioDAO {
 
     public List<Usuario> getAll() throws SQLException {
         LOGGER.debug("UsuarioDAO.getAll()");
-        List<Usuario> usuarios = new ArrayList<Usuario>();
+        List<Usuario> usuarios = new ArrayList<>();
 
-        String sql = "SELECT * FROM usuario;";
-        PreparedStatement pst = con.prepareStatement(sql);
-        ResultSet rs = pst.executeQuery();
-
-        while (rs.next()) {
-            Usuario usuario = new Usuario();
-            usuario.setId(rs.getInt("id"));
-            usuario.setNome(rs.getString("nome"));
-            usuario.setEmail(rs.getString("email"));
+        String sql = "SELECT * FROM usuario ORDER BY nome;";
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+            ResultSet rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt("id"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setEmail(rs.getString("email"));
 //            usuario.setSenha(rs.getString("senha"));
-            usuario.setPapel(new PapelDAO(con).findById(rs.getInt("id_papel")));
-            usuario.setAtivo(rs.getBoolean("ativo"));
-
-            usuarios.add(usuario);
+                usuario.setPapel(new PapelDAO(con).findById(rs.getInt("id_papel")));
+                usuario.setAtivo(rs.getBoolean("ativo"));
+                
+                usuarios.add(usuario);
+            }
+            
+            LOGGER.debug("Usuarios: " + usuarios.size());
         }
-
-        LOGGER.debug("Usuarios: " + usuarios.size());
-        pst.close();
         return usuarios;
     }
 
@@ -125,14 +125,14 @@ public class UsuarioDAO {
 
             String sql = query.validate().toString();
 
-            PreparedStatement pst = con.prepareStatement(sql);
-             int cont = pst.executeUpdate();
-
-            pst.close();
+            int cont;
+            try (PreparedStatement pst = con.prepareStatement(sql)) {
+                cont = pst.executeUpdate();
+            }
 
             return cont > 0;
         } else {
-            throw new IllegalArgumentException("O id do usu�rio deve ser um n�mero inteiro positivo");
+            throw new IllegalArgumentException("O id do usuário deve ser um número inteiro positivo");
         }
     }
 
@@ -140,7 +140,7 @@ public class UsuarioDAO {
         LOGGER.debug("UsuarioDAO.create()");
 
         if (usuario.getId() > 0) {
-            throw new IllegalArgumentException("O id do usu�rio deve estar vazio");
+            throw new IllegalArgumentException("O id do usuário deve estar vazio");
         } else {
             DbSpec spec = new DbSpec();
             DbSchema schema = spec.addDefaultSchema();
@@ -156,16 +156,15 @@ public class UsuarioDAO {
                     .validate()
                     .toString();
 
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, usuario.getNome());
-            pst.setString(2, usuario.getEmail());
-            pst.setString(3, usuario.getSenha());
-            pst.setInt(4, usuario.getPapel().getId());
-            pst.setBoolean(5, usuario.isAtivo());
-
-             int cont = pst.executeUpdate();
-
-            pst.close();
+            int cont;
+            try (PreparedStatement pst = con.prepareStatement(sql)) {
+                pst.setString(1, usuario.getNome());
+                pst.setString(2, usuario.getEmail());
+                pst.setString(3, usuario.getSenha());
+                pst.setInt(4, usuario.getPapel().getId());
+                pst.setBoolean(5, usuario.isAtivo());
+                cont = pst.executeUpdate();
+            }
 
             return cont > 0;
         }
