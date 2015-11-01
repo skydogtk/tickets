@@ -1,7 +1,7 @@
 <div>
     <!--	<a ui-sref="overview" class="pull-right btn btn-primary btn-outline btn-rounded">Back to Overview</a>-->
     <h2>Chamados <small></small></h2>
-    <span class="glyphicon glyphicon-edit bg-fade"></span>
+    <!--<span class="glyphicon glyphicon-edit bg-fade"></span>-->
     <div class="jumbotron">
         <div class="container">
             <p>
@@ -9,8 +9,20 @@
                 <a class="btn btn-primary btn-lg btn-outline btn-rounded">Nova solicitação</a>    
             </p>
 
-            <h1>Add Charts here</h1>
-            <p>You can use C3.js or Chart.js</p>
+            <table ng-table="param" class="table">
+                <tr ng-repeat="chamado in chamados">
+                    <td data-title="'Código'" sortable="'id'">{{chamado.id|number}}</td>
+                    <td data-title="'Tipo'" sortable="'nome'">{{chamado.assunto}}</td>
+                    <td data-title="'Usuário'" sortable="'email'">{{chamado.assunto}}</td>
+                    <td data-title="'Assunto'" sortable="'papel.desc'">{{chamado.assunto}}</td>
+                    <td data-title="'Situação'" sortable="'ativo'">{{chamado.assunto}}</td>
+                    <td data-title="'Ação'">
+                        <a class="btn btn-circle btn-icon-only btn-default" ng-click="showModal(usuario)">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
             
         </div>
     </div>
