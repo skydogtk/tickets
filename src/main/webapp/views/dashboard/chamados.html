@@ -12,10 +12,11 @@
             <table ng-table="param" class="table">
                 <tr ng-repeat="chamado in chamados">
                     <td data-title="'Código'" sortable="'id'">{{chamado.id|number}}</td>
-                    <td data-title="'Tipo'" sortable="'nome'">{{chamado.assunto}}</td>
-                    <td data-title="'Usuário'" sortable="'email'">{{chamado.assunto}}</td>
-                    <td data-title="'Assunto'" sortable="'papel.desc'">{{chamado.assunto}}</td>
-                    <td data-title="'Situação'" sortable="'ativo'">{{chamado.assunto}}</td>
+                    <td data-title="'Tipo'" sortable="'tipoChamado.desc'">{{chamado.tipoChamado.desc}}</td>
+                    <td data-title="'Abertura'" sortable="'datahora'">{{chamado.datahora|date:'dd/MM/yyyy'}}</td>
+                    <td data-title="'Usuário'" sortable="'usuarioAutor.nome'">{{chamado.usuarioAutor.nome}}</td>
+                    <td data-title="'Assunto'" sortable="'assunto'">{{chamado.assunto}}</td>
+                    <td data-title="'Situação'" sortable="'tipoSituacao.desc'">{{chamado.tipoSituacao.desc}}</td>
                     <td data-title="'Ação'">
                         <a class="btn btn-circle btn-icon-only btn-default" ng-click="showModal(chamado)">
                             <i class="fa fa-pencil-square-o"></i>

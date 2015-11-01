@@ -19,7 +19,7 @@ angular.module('yapp')
             $scope.param = new ngTableParams(
                     {
                         count: $scope.chamados.length,
-                        sorting: {id: 'asc'}},
+                        sorting: {id: 'desc'}},
             {
                 total: $scope.chamados.length,
                 counts: [],
