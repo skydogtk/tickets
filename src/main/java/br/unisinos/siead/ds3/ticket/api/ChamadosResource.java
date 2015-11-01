@@ -8,6 +8,7 @@ import br.unisinos.siead.ds3.ticket.util.LogUtils;
 import com.sun.jersey.api.core.HttpContext;
 import java.sql.Connection;
 import java.util.List;
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -31,6 +32,7 @@ public class ChamadosResource {
     private HttpContext context;
 
     @GET
+    @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     public Response getChamados() {
         Connection con = (Connection) context.getProperties().get("conexao");

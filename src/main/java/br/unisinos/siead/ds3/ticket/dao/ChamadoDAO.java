@@ -1,8 +1,6 @@
 package br.unisinos.siead.ds3.ticket.dao;
 
 import br.unisinos.siead.ds3.ticket.dto.Chamado;
-import br.unisinos.siead.ds3.ticket.dto.Papel;
-import br.unisinos.siead.ds3.ticket.dto.TipoFalha;
 import br.unisinos.siead.ds3.ticket.util.LogUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
