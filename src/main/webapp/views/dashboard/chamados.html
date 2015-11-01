@@ -16,6 +16,7 @@
                     <td data-title="'Abertura'" sortable="'datahora'">{{chamado.datahora|date:'dd/MM/yyyy'}}</td>
                     <td data-title="'Usuário'" sortable="'usuarioAutor.nome'">{{chamado.usuarioAutor.nome}}</td>
                     <td data-title="'Assunto'" sortable="'assunto'">{{chamado.assunto}}</td>
+                    <td data-title="'Severidade'" sortable="'tipoFalha.desc'">{{chamado.tipoFalha.desc}}</td>
                     <td data-title="'Situação'" sortable="'tipoSituacao.desc'">{{chamado.tipoSituacao.desc}}</td>
                     <td data-title="'Ação'">
                         <a class="btn btn-circle btn-icon-only btn-default" ng-click="showModal(chamado)">
