@@ -190,4 +190,26 @@ public class UsuariosResource {
             DBUtil.fecha(con);
         }
     }
+
+    @GET
+    @Path("atendentes")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"Supervisor"})
+    public Response listaUsuarioAtendente() {
+        Connection con = (Connection) context.getProperties().get("conexao");
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO(con);
+            List<Usuario> usuarios = usuarioDAO.findAtendente();
+            return Response
+                    .status(Response.Status.OK)
+                    .entity(usuarios.toArray(new Usuario[0]))
+                    .type(MediaType.APPLICATION_JSON)
+                    .build();
+        } catch (Exception ex) {
+            LOGGER.error(ex);
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        } finally {
+            DBUtil.fecha(con);
+        }
+    }
 }

@@ -41,7 +41,7 @@ public class UsuarioDAO {
             usuario = null;
             if (rs.next()) {
                 usuario = new Usuario();
-                
+
                 usuario.setId(rs.getInt("id"));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setEmail(rs.getString("email"));
@@ -85,7 +85,7 @@ public class UsuarioDAO {
         String sql = "SELECT * FROM usuario ORDER BY nome;";
         try (PreparedStatement pst = con.prepareStatement(sql)) {
             ResultSet rs = pst.executeQuery();
-            
+
             while (rs.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));
@@ -94,10 +94,35 @@ public class UsuarioDAO {
 //            usuario.setSenha(rs.getString("senha"));
                 usuario.setPapel(new PapelDAO(con).findById(rs.getInt("id_papel")));
                 usuario.setAtivo(rs.getBoolean("ativo"));
-                
+
                 usuarios.add(usuario);
             }
-            
+
+            LOGGER.debug("Usuarios: " + usuarios.size());
+        }
+        return usuarios;
+    }
+
+    public List<Usuario> findAtendente() throws SQLException {
+        LOGGER.debug("UsuarioDAO.findAtendente()");
+        List<Usuario> usuarios = new ArrayList<>();
+
+        String sql = "SELECT * FROM usuario WHERE id_papel IN (1, 2) ORDER BY nome;";
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt("id"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setEmail(rs.getString("email"));
+//            usuario.setSenha(rs.getString("senha"));
+                usuario.setPapel(new PapelDAO(con).findById(rs.getInt("id_papel")));
+                usuario.setAtivo(rs.getBoolean("ativo"));
+
+                usuarios.add(usuario);
+            }
+
             LOGGER.debug("Usuarios: " + usuarios.size());
         }
         return usuarios;

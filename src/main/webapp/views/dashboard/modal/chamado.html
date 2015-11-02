@@ -13,27 +13,72 @@
                             <input type="number" class="form-control" id="codigo" placeholder="Código" ng-model="id" disabled>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="tipoFalha" class="col-sm-2 control-label">Severidade</label>
+                    <div class="form-group" ng-show="id != ''">
+                        <label for="autor" class="col-sm-2 control-label">Autor</label>
                         <div class="col-sm-10">
-                            <select name="tipoFalha" id="tipoFalha" required="" ng-model="tipoFalha" ng-options="tipoFalha.desc for tipoFalha in tipoFalhaLista track by tipoFalha.id"></select>
-                            <xt-validation-inline for="tipoFalha"></xt-validation-inline>
+                            <input type="text" class="form-control" id="autor" name="autor" required="" placeholder="Autor" ng-model="autor" disabled="">
+                        </div>
+                    </div>
+<!--                    <div class="form-group" ng-show="id != ''">
+                        <label for="datahora" class="col-sm-2 control-label">Abertura</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="datahora" name="dathora" required="" placeholder="Abertura" ng-model="datahora" disabled="">
+                        </div>
+                    </div>-->
+                    <div class="form-group" ng-show="id != ''">
+                        <label for="atendimento" class="col-sm-2 control-label">Atendimento</label>
+                        <div class="col-sm-10">
+                            <select name="atendimento" id="atendimento" required="" ng-model="usuarioAtendimento" ng-options="usuarioAtendimento.nome for usuarioAtendimento in usuarioAtendenteLista track by usuarioAtendimento.id"></select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="id != ''">
+                        <label for="tipoSituacao" class="col-sm-2 control-label">Situacao</label>
+                        <div class="col-sm-10">
+                            <select name="tipoSituacao" id="tipoSituacao" required="" ng-model="tipoSituacao" ng-options="tipoSituacao.desc for tipoSituacao in tipoSituacaoLista track by tipoSituacao.id" ng-disabled="id != ''"></select>
                         </div>
                     </div>
 
+                    <div class="form-group" ng-show="titulo === 'Incidente'">
+                        <label for="tipoFalha" class="col-sm-2 control-label">Severidade</label>
+                        <div class="col-sm-10">
+                            <select name="tipoFalha" id="tipoFalha" required="" ng-model="tipoFalha" ng-options="tipoFalha.desc for tipoFalha in tipoFalhaLista track by tipoFalha.id" ng-disabled="id != ''"></select>
+                            <xt-validation-inline for="tipoFalha"></xt-validation-inline>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="assunto" class="col-sm-2 control-label">Assunto</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="assunto" name="assunto" required="" placeholder="Assunto" ng-model="assunto">
+                            <input type="text" class="form-control" id="assunto" name="assunto" required="" placeholder="Assunto" ng-model="assunto" ng-disabled="id != ''">
                             <xt-validation-inline for="assunto"></xt-validation-inline>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="descricao" class="col-sm-2 control-label">Descrição</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" id="descricao" name="descricao" required="" placeholder="Descricao" ng-model="descricao"></textarea>
+                            <textarea class="form-control" id="descricao" name="descricao" required="" placeholder="Descricao" ng-model="descricao" ng-disabled="id != ''">Descrição</textarea>
                             <xt-validation-inline for="descricao"></xt-validation-inline>
+                        </div>
+                    </div>
+                    <div class="form-group"  ng-show="id != ''">
+                        <label for="mensagem" class="col-sm-2 control-label">Mensagem</label>
+                        <div class="col-sm-10 input-group">
+                            <input type="text" class="form-control" id="mensagem" name="mensagem" placeholder="Descricao" ng-model="mensagem">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn" ng-click="envia()">Enviar</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group"  ng-show="id != ''">
+                        <label for="mensagem" class="col-sm-2 control-label">Histórico</label>
+                        <!--<div class="col-sm-10 scroller" style="height: 282px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">-->
+                        <div class="col-sm-10">
+                            <table ng-table="param" class="table">
+                                <tr ng-repeat="historico in chamadoHistoricoLista">
+                                    <td data-title="'Data'" sortable="'datahora'">{{historico.datahora|date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                    <td data-title="'Usuário'" sortable="'tipoChamado.desc'">{{historico.usuario.nome}} ({{historico.usuario.papel.desc}})</td>
+                                    <td data-title="'Descrição'">{{historico.desc}}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div class="modal-footer">

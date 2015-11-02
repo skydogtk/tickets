@@ -54,4 +54,26 @@ public class ChamadoDAO {
         return chamados;
     }
 
+    public Chamado findById(int idChamado) throws SQLException {
+        Chamado chamado = new Chamado();
+        String sql = "SELECT * FROM chamado WHERE id = ?;";
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setInt(1, idChamado);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                chamado.setAssunto(rs.getString("assunto"));
+                chamado.setDatahora(rs.getTimestamp("datahora").getTime());
+                chamado.setDescricao(rs.getString("descricao"));
+                chamado.setId(rs.getInt("id"));
+                chamado.setTipoChamado(new TipoChamadoDAO(con).findById(rs.getInt("id_tipo_chamado")));
+                chamado.setTipoFalha(new TipoFalhaDAO(con).findById(rs.getInt("id_tipo_falha")));
+                chamado.setTipoSituacao(new TipoSituacaoDAO(con).findById(rs.getInt("id_tipo_situacao")));
+                chamado.setUsuarioAtendimento(new UsuarioDAO(con).findById(rs.getInt("id_usuario_atendimento")));
+                chamado.setUsuarioAutor(new UsuarioDAO(con).findById(rs.getInt("id_usuario_autor")));
+            }
+        }
+        return chamado;
+    }
+
 }
