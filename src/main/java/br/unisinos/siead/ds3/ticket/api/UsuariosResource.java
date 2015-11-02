@@ -194,7 +194,7 @@ public class UsuariosResource {
     @GET
     @Path("atendentes")
     @Produces(MediaType.APPLICATION_JSON)
-    @RolesAllowed({"Supervisor"})
+    @PermitAll
     public Response listaUsuarioAtendente() {
         Connection con = (Connection) context.getProperties().get("conexao");
         try {
