@@ -37,27 +37,19 @@ angular.module('yapp')
                         });
             };
 
-            $scope.showModal = function (chamado) {
-                var opt = {};
+            $scope.showModal = function (param) {
+                var opt = {
+                    templateUrl: "views/dashboard/modal/chamado.html",
+                    controller: "ChamadoModalCtrl",
+                    inputs: {
+                        chamado: param.chamado
+                    }
+                };
 
-                if (chamado) {
-                    opt = {
-                        templateUrl: "views/dashboard/modal/solicitacao.html",
-                        controller: "SolicitacaoModalCtrl",
-                        inputs: {
-                            titulo: "Solicitação",
-                            chamado: chamado
-                        }
-                    };
+                if (param.tipo) {
+                    opt.inputs.titulo = param.tipo;
                 } else {
-                    opt = {
-                        templateUrl: "views/dashboard/modal/incidente.html",
-                        controller: "IncidenteModalCtrl",
-                        inputs: {
-                            titulo: "Incidente",
-                            chamado: chamado
-                        }
-                    };
+                    opt.inputs.titulo = param.chamado.tipoChamado.desc;
                 }
 
                 ModalService.showModal(opt).then(function (modal) {

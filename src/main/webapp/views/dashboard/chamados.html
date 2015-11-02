@@ -5,8 +5,8 @@
     <div class="jumbotron">
         <div class="container">
             <p>
-                <a class="btn btn-primary btn-lg btn-outline btn-rounded">Novo incidente</a>    
-                <a class="btn btn-primary btn-lg btn-outline btn-rounded">Nova solicitação</a>    
+                <a class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="showModal({tipo: 'Incidente'})">Novo incidente</a>    
+                <a class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="showModal({tipo: 'Solicitação'})">Nova solicitação</a>    
             </p>
 
             <table ng-table="param" class="table">
@@ -19,13 +19,13 @@
                     <td data-title="'Severidade'" sortable="'tipoFalha.desc'">{{chamado.tipoFalha.desc}}</td>
                     <td data-title="'Situação'" sortable="'tipoSituacao.desc'">{{chamado.tipoSituacao.desc}}</td>
                     <td data-title="'Ação'">
-                        <a class="btn btn-circle btn-icon-only btn-default" ng-click="showModal(chamado)">
+                        <a class="btn btn-circle btn-icon-only btn-default" ng-click="showModal({chamado: chamado})">
                             <i class="fa fa-pencil-square-o"></i>
                         </a>
                     </td>
                 </tr>
             </table>
-            
+
         </div>
     </div>
 </div>
