@@ -1,13 +1,15 @@
 package br.unisinos.siead.ds3.ticket;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.TimeZone;
 
 public class Temp {
 
     public static void main(String args[]) throws SQLException {
         System.out.println(System.getenv("TICKET_DB_VENDOR"));
+//        TimeZone tz = TimeZone.getDefault();
+        TimeZone tz = TimeZone.getTimeZone("America/Sao_Paulo");
+        System.out.println(tz);
 
         /*
          String HOST = System.getenv("OPENSHIFT_POSTGRESQL_DB_HOST");

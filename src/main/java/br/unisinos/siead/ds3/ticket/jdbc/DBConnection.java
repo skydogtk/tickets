@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.Logger;
 
 import br.unisinos.siead.ds3.ticket.util.LogUtils;
+import java.sql.Statement;
+import java.util.TimeZone;
 
 public abstract class DBConnection {
 
@@ -25,6 +27,7 @@ public abstract class DBConnection {
         this.senha = cs.getSenha();
 
         try {
+            TimeZone.setDefault(TimeZone.getTimeZone("America/Sao_Paulo"));
             Class.forName(cs.getDriver());
         } catch (ClassNotFoundException ex) {
             LOGGER.error("Erro no connection factory: " + ex.getMessage());
@@ -37,6 +40,9 @@ public abstract class DBConnection {
         Connection con = null;
         try {
             con = DriverManager.getConnection(url, usuario, senha);
+            String sql = "SET TIMEZONE TO 'America/Sao_Paulo';";
+            Statement st = con.createStatement();
+            st.execute(sql);
         } catch (SQLException ex) {
             LOGGER.error("Erro na conexão: " + ex.getMessage());
             throw new Exception(ex);
