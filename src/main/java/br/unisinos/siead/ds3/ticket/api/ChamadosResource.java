@@ -1,8 +1,9 @@
-package br.unisinos.siead.ds3.ticket.api;
+    package br.unisinos.siead.ds3.ticket.api;
 
 import br.unisinos.siead.ds3.ticket.annotation.Authenticated;
 import br.unisinos.siead.ds3.ticket.dao.ChamadoDAO;
 import br.unisinos.siead.ds3.ticket.dto.Chamado;
+import br.unisinos.siead.ds3.ticket.dto.Usuario;
 import br.unisinos.siead.ds3.ticket.jdbc.DBUtil;
 import br.unisinos.siead.ds3.ticket.util.LogUtils;
 import com.sun.jersey.api.core.HttpContext;
@@ -38,8 +39,9 @@ public class ChamadosResource {
         Connection con = (Connection) context.getProperties().get("conexao");
 
         try {
+            Usuario usuario = (Usuario) context.getProperties().get("usuario");
             ChamadoDAO chamadoDAO = new ChamadoDAO(con);
-            List<Chamado> chamados = chamadoDAO.getAll();
+            List<Chamado> chamados = chamadoDAO.findByUsuario(usuario);
             return Response
                     .status(Response.Status.OK)
                     .entity(chamados.toArray(new Chamado[0]))

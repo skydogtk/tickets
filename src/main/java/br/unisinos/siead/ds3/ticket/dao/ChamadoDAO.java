@@ -1,6 +1,7 @@
 package br.unisinos.siead.ds3.ticket.dao;
 
 import br.unisinos.siead.ds3.ticket.dto.Chamado;
+import br.unisinos.siead.ds3.ticket.dto.Usuario;
 import br.unisinos.siead.ds3.ticket.util.LogUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -76,4 +77,47 @@ public class ChamadoDAO {
         return chamado;
     }
 
+    public List<Chamado> findByUsuario(Usuario usuario) throws SQLException {
+        LOGGER.debug("ChamadoDAO.findByUsuario()");
+        List<Chamado> chamados = new ArrayList<>();
+
+        String condicao = "";
+
+        if (usuario.getPapel().getId() == 3) {
+            /* 
+             * Usuário 
+             * Listar apenas os chamados deste usuário
+             */
+            condicao = "WHERE id_usuario_autor = " + usuario.getId();
+        } else if (usuario.getPapel().getId() == 2) {
+            /* 
+             * Analista:
+             * Listar chamados que este usuário é o autor, que ele atende ou que aguardem atendimento
+             */
+            condicao = "WHERE id_usuario_autor = " + usuario.getId() + " OR id_usuario_atendimento = " + usuario.getId() + " OR id_tipo_situacao = 1";
+        }
+
+        String sql = "SELECT * FROM chamado " + condicao + " ORDER BY id DESC;";
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Chamado chamado = new Chamado();
+                chamado.setAssunto(rs.getString("assunto"));
+                chamado.setDatahora(rs.getTimestamp("datahora").getTime());
+                chamado.setDescricao(rs.getString("descricao"));
+                chamado.setId(rs.getInt("id"));
+                chamado.setTipoChamado(new TipoChamadoDAO(con).findById(rs.getInt("id_tipo_chamado")));
+                chamado.setTipoFalha(new TipoFalhaDAO(con).findById(rs.getInt("id_tipo_falha")));
+                chamado.setTipoSituacao(new TipoSituacaoDAO(con).findById(rs.getInt("id_tipo_situacao")));
+                chamado.setUsuarioAtendimento(new UsuarioDAO(con).findById(rs.getInt("id_usuario_atendimento")));
+                chamado.setUsuarioAutor(new UsuarioDAO(con).findById(rs.getInt("id_usuario_autor")));
+
+                chamados.add(chamado);
+            }
+
+            LOGGER.debug("Chamados: " + chamados.size());
+        }
+        return chamados;
+    }
 }
