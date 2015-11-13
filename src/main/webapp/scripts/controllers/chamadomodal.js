@@ -59,7 +59,7 @@ angular.module('yapp')
                     $scope.datahora = '';
                     $scope.descricao = '';
                     $scope.id = '';
-                    $scope.tipoChamado = '';
+                    $scope.tipoChamado = $scope.titulo;
                     $scope.tipoFalha = '';
                     $scope.tipoSituacao = '';
                     $scope.usuarioAtendimento = '';
@@ -77,23 +77,40 @@ angular.module('yapp')
                         .success(function (response) {
                             $scope.tipoFalhaLista = response;
                         });
+
                 $scope.tipoSituacaoLista = {};
                 $http.get('api/tipossituacoes')
                         .success(function (response) {
                             $scope.tipoSituacaoLista = response;
                         });
+
+                $scope.valida = function () {
+                    if (
+                            !$scope.assunto ||
+                            !$scope.descricao) {
+                        return false;
+                    } else if (
+                            $scope.titulo === 'Incidente' &&
+                            isNaN(parseInt($scope.id)) &&
+                            isNaN(parseInt($scope.tipoFalha.id))) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                };
+
                 $scope.save = function () {
-                    if ($scope.form.$valid) {
-                        var dados = {
-                            assnto: $scope.assunto,
-                            descricao: $scope.descricao,
-                            id: $scope.id,
-                            tipoChamado: $scope.tipoChamado,
-                            tipoFalha: $scope.tipoFalha,
-                            tipoSituacao: $scope.tipoSituacao,
-                            usuarioAtendimento: $scope.usuarioAtendimento
-                        };
+                    if ($scope.valida()) {
+
                         if (isNaN(parseInt($scope.id))) {
+                            console.log("POST");
+
+                            var dados = {
+                                assunto: $scope.assunto,
+                                descricao: $scope.descricao,
+                                tipoChamado: $scope.tipoChamado,
+                                tipoFalha: $scope.tipoFalha
+                            };
                             $http.post('api/chamados', dados)
                                     .success(function () {
                                         $element.modal('hide');
@@ -103,6 +120,13 @@ angular.module('yapp')
                                         alert("Não foi possível salvar os dados.");
                                     });
                         } else {
+                            console.log("PUT");
+                            var dados = {
+                                assunto: $scope.assunto,
+                                descricao: $scope.descricao,
+                                tipoChamado: $scope.tipoChamado,
+                                tipoFalha: $scope.tipoFalha
+                            };
                             $http.put('api/chamados/' + $scope.id, dados)
                                     .success(function () {
                                         $element.modal('hide');
@@ -112,6 +136,8 @@ angular.module('yapp')
                                         alert("Não foi possível salvar os dados.");
                                     });
                         }
+                    } else {
+                        alert("Verifique campos obrigatórios");
                     }
                 };
                 $scope.cancel = function () {

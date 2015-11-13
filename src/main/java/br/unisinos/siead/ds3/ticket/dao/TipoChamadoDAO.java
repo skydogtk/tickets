@@ -42,7 +42,24 @@ public class TipoChamadoDAO {
         }
         return tipoChamado;
     }
+    
+    public TipoChamado findByDescricao(String descricao) throws SQLException {
+        String sql = "SELECT * FROM tipo_chamado WHERE descricao = ? ORDER BY id ASC;";
+        TipoChamado tipoChamado;
+        try (PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setString(1, descricao);
+            ResultSet rs = pst.executeQuery();
+            tipoChamado = null;
+            if (rs.next()) {
+                tipoChamado = new TipoChamado();
 
+                tipoChamado.setId(rs.getInt("id"));
+                tipoChamado.setDesc(rs.getString("descricao"));
+            }
+        }
+        return tipoChamado;
+    }
+    
     public List<TipoChamado> getAll() throws SQLException {
         LOGGER.debug("TipoChamadoDAO.getALl()");
         List<TipoChamado> chamados = new ArrayList<>();
