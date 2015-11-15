@@ -1,5 +1,9 @@
 angular.module('yapp')
-        .controller('ChamadoModalCtrl', ['$scope', '$http', '$element', 'titulo', 'chamado', 'close', 'md5', '$document', '$filter', 'ngTableParams', function ($scope, $http, $element, titulo, chamado, close, md5, $document, $filter, ngTableParams) {
+        .controller('ChamadoModalCtrl', ['$scope', '$http', '$element', 'titulo', 'chamado', 'close', 'md5', '$document', '$filter', 'ngTableParams', '$rootScope', '$cookieStore', function ($scope, $http, $element, titulo, chamado, close, md5, $document, $filter, ngTableParams, $rootScope, $cookieStore) {
+
+                $rootScope.globals = $cookieStore.get('globals') || {};
+                $scope.papel = $rootScope.globals.currentUser.papel;
+
                 $scope.titulo = titulo;
                 if (chamado) {
                     $scope.assunto = chamado.assunto || '';
@@ -33,7 +37,7 @@ angular.module('yapp')
                         }
                     });
 
-                    $scope.atualiza = function () {
+                    $scope.atualizaHistorico = function () {
                         $http.get('api/chamadohistorico/' + $scope.id)
                                 .success(function (response) {
                                     $scope.chamadoHistoricoLista = response;
@@ -46,7 +50,7 @@ angular.module('yapp')
                             $http.post('api/chamadohistorico/' + $scope.id, {mensagem: $scope.mensagem})
                                     .success(function () {
                                         $scope.mensagem = '';
-                                        $scope.atualiza();
+                                        $scope.atualizaHistorico();
                                     })
                                     .error(function () {
                                         alert("Não foi possível salvar os dados.");
@@ -140,8 +144,103 @@ angular.module('yapp')
                         alert("Verifique campos obrigatórios");
                     }
                 };
+
+                $scope.showAtender = function () {
+                    if ($scope.papel.id === 2 && $scope.tipoSituacao.id === 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
+
+                $scope.showEncerrar = function () {
+                    if ($scope.papel.id === 2 && $scope.tipoSituacao.id === 2) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
+
+                $scope.showRetomar = function () {
+                    if ($scope.papel.id === 1 && $scope.tipoSituacao.id === 3) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
+
+                $scope.atender = function () {
+                    $http.put('api/chamados/atender/' + $scope.id)
+                            .success(function (response) {
+                                if (response.sucesso) {
+                                    $scope.atualizaChamado();
+                                    $scope.atualizaHistorico();
+                                } else {
+                                    alert(response.mensagem);
+                                }
+                            })
+                            .error(function () {
+                                alert("Não foi possível realizar a operação.");
+                            });
+                };
+
+                $scope.encerrar = function () {
+                    $http.put('api/chamados/encerrar/' + $scope.id)
+                            .success(function (response) {
+                                if (response.sucesso) {
+                                    $scope.atualizaChamado();
+                                    $scope.atualizaHistorico();
+                                } else {
+                                    alert(response.mensagem);
+                                }
+                            })
+                            .error(function () {
+                                alert("Não foi possível realizar a operação.");
+                            });
+                };
+
+                $scope.retomar = function () {
+                    $http.put('api/chamados/retomar/' + $scope.id)
+                            .success(function (response) {
+                                if (response.sucesso) {
+                                    $scope.atualizaChamado();
+                                    $scope.atualizaHistorico();
+                                } else {
+                                    alert(response.mensagem);
+                                }
+                            })
+                            .error(function () {
+                                alert("Não foi possível realizar a operação.");
+                            });
+                };
+
+                $scope.showGravar = function () {
+                    if (isNaN(parseInt($scope.id))) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
+
                 $scope.cancel = function () {
                     $element.modal('hide');
-                    close({atualiza: false}, 500);
+                    close({atualiza: true}, 500);
+                };
+
+                $scope.atualizaChamado = function () {
+                    $http.get('api/chamados/' + $scope.id)
+                            .success(function (response) {
+                                $scope.assunto = response.assunto || '';
+                                $scope.datahora = $filter('date')(new Date(response.datahora), 'dd/MM/yyyy');
+                                $scope.descricao = response.descricao || '';
+                                $scope.id = response.id || '';
+                                $scope.tipoChamado = response.tipoChamado || '';
+                                $scope.tipoFalha = response.tipoFalha || '';
+                                $scope.tipoSituacao = response.tipoSituacao || '';
+                                $scope.usuarioAtendimento = response.usuarioAtendimento || '';
+                                $scope.usuarioAutor = response.usuarioAutor || '';
+                                $scope.autor = response.usuarioAutor.nome + " (" + response.usuarioAutor.papel.desc + ")";
+                                $scope.mensagem = '';
+                            });
                 };
             }]);

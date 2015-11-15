@@ -43,9 +43,14 @@ public class AuthResource {
 
             Usuario usuario = new AuthenticationService(con).authenticate(email, senha);
             if (usuario != null) {
+                JSONObject papel = new JSONObject();
+                papel.put("id", usuario.getPapel().getId());
+                papel.put("desc", usuario.getPapel().getDesc());
+                
                 resposta.put("sucesso", true);
                 resposta.put("mensagem", "Ok");
                 resposta.put("nome", usuario.getNome());
+                resposta.put("papel", papel);
             } else {
                 resposta.put("sucesso", false);
                 resposta.put("mensagem", "Usuário ou senha incorretos");

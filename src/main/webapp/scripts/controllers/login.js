@@ -25,7 +25,7 @@ angular.module('yapp')
                 var hashSenha = md5.createHash($scope.senha);
                 AuthenticationService.Login($scope.email, hashSenha, function (response) {
                     if (response.sucesso) {
-                        AuthenticationService.SetCredentials($scope.email, hashSenha, response.nome);
+                        AuthenticationService.SetCredentials($scope.email, hashSenha, response.nome, response.papel);
                         $location.path('/dashboard');
                     } else {
                         alert(response.mensagem);

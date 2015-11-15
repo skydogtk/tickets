@@ -107,7 +107,7 @@ public class UsuarioDAO {
         LOGGER.debug("UsuarioDAO.findAtendente()");
         List<Usuario> usuarios = new ArrayList<>();
 
-        String sql = "SELECT * FROM usuario WHERE id_papel IN (1, 2) ORDER BY nome;";
+        String sql = "SELECT * FROM usuario WHERE id_papel IN (2) ORDER BY nome;";
         try (PreparedStatement pst = con.prepareStatement(sql)) {
             ResultSet rs = pst.executeQuery();
 

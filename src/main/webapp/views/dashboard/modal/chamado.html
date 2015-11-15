@@ -19,14 +19,6 @@
                             <input type="text" class="form-control" id="autor" name="autor" required="" placeholder="Autor" ng-model="autor" disabled="">
                         </div>
                     </div>
-                    <!--
-                    <div class="form-group" ng-show="id != ''">
-                        <label for="datahora" class="col-sm-2 control-label">Abertura</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="datahora" name="dathora" required="" placeholder="Abertura" ng-model="datahora" disabled="">
-                        </div>
-                    </div>
-                    -->
                     <div class="form-group" ng-show="id != ''">
                         <label for="atendimento" class="col-sm-2 control-label">Atendimento</label>
                         <div class="col-sm-10">
@@ -36,7 +28,8 @@
                     <div class="form-group" ng-show="id != ''">
                         <label for="tipoSituacao" class="col-sm-2 control-label">Situacao</label>
                         <div class="col-sm-10">
-                            <select name="tipoSituacao" id="tipoSituacao" required="" ng-model="tipoSituacao" ng-options="tipoSituacao.desc for tipoSituacao in tipoSituacaoLista track by tipoSituacao.id" ng-disabled="id != ''"></select>
+                            <!--                            <select name="tipoSituacao" id="tipoSituacao" required="" ng-model="tipoSituacao" ng-options="tipoSituacao.desc for tipoSituacao in tipoSituacaoLista track by tipoSituacao.id" ng-disabled="id != ''"></select>-->
+                            <input type="text" class="form-control" id="tipoSituacao" placeholder="Situação" ng-model="tipoSituacao.desc" disabled>
                         </div>
                     </div>
 
@@ -89,7 +82,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" ng-click="save()" class="btn btn-primary">Gravar</button>
+                        <button type="button" ng-click="atender()" class="btn btn-primary" ng-show="showAtender()">Atender chamado</button>
+                        <button type="button" ng-click="encerrar()" class="btn btn-primary" ng-show="showEncerrar()">Encerrar chamado</button>
+                        <button type="button" ng-click="retomar()" class="btn btn-primary" ng-show="showRetomar()">Retomar atendimento</button>
+                        <button type="button" ng-click="save()" class="btn btn-primary" ng-show="showGravar()">Gravar</button>
                         <button type="button" ng-click="cancel()" class="btn">Cancelar</button>
                     </div>
                 </form>					
