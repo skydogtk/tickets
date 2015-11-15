@@ -5,6 +5,7 @@ import br.unisinos.siead.ds3.ticket.dao.ChamadoDAO;
 import br.unisinos.siead.ds3.ticket.dao.ChamadoHistoricoDAO;
 import br.unisinos.siead.ds3.ticket.dao.TipoChamadoDAO;
 import br.unisinos.siead.ds3.ticket.dao.TipoSituacaoDAO;
+import br.unisinos.siead.ds3.ticket.dao.UsuarioDAO;
 import br.unisinos.siead.ds3.ticket.dto.Chamado;
 import br.unisinos.siead.ds3.ticket.dto.ChamadoHistorico;
 import br.unisinos.siead.ds3.ticket.dto.TipoFalha;
@@ -223,6 +224,55 @@ public class ChamadosResource {
                 resposta.put("sucesso", false);
                 resposta.put("mensagem", "O chamado não está encerrado.");
 
+            }
+
+            return Response
+                    .status(Response.Status.OK)
+                    .entity(resposta.toString())
+                    .type(MediaType.APPLICATION_JSON)
+                    .build();
+        } catch (Exception ex) {
+            LOGGER.error(ex);
+            throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
+        } finally {
+            DBUtil.fecha(con);
+        }
+    }
+
+    @PUT
+    @Path("{id}")
+    @RolesAllowed({"Supervisor"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response alterarAtendenteChamado(@PathParam("id") int idChamado, JSONObject json) {
+        Connection con = (Connection) context.getProperties().get("conexao");
+
+        try {
+            JSONObject resposta = new JSONObject();
+            JSONObject usuarioAtendimento = json.getJSONObject("usuarioAtendimento");
+            Usuario usuario = (Usuario) context.getProperties().get("usuario");
+
+            ChamadoDAO chamadoDAO = new ChamadoDAO(con);
+            Chamado chamado = chamadoDAO.findById(idChamado);
+
+            if (chamado.getTipoSituacao().getId() == 2) {
+                Usuario novoAtendente = new UsuarioDAO(con).findById(usuarioAtendimento.getInt("id"));
+                chamado.setUsuarioAtendimento(novoAtendente);
+
+                if (chamadoDAO.save(chamado)) {
+                    ChamadoHistorico chamadoHistorico = new ChamadoHistorico();
+                    chamadoHistorico.setChamado(chamado);
+                    chamadoHistorico.setUsuario(usuario);
+                    chamadoHistorico.setDesc("Atendimento alterado para o analista " + novoAtendente.getNome());
+
+                    ChamadoHistoricoDAO chamadoHistoricoDAO = new ChamadoHistoricoDAO(con);
+                    chamadoHistoricoDAO.save(chamadoHistorico);
+                }
+
+                resposta.put("sucesso", true);
+                resposta.put("mensagem", "Ok");
+            } else {
+                resposta.put("sucesso", false);
+                resposta.put("mensagem", "O chamado não está em atendimento.");
             }
 
             return Response

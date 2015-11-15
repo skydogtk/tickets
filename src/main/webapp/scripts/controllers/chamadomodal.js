@@ -107,8 +107,6 @@ angular.module('yapp')
                     if ($scope.valida()) {
 
                         if (isNaN(parseInt($scope.id))) {
-                            console.log("POST");
-
                             var dados = {
                                 assunto: $scope.assunto,
                                 descricao: $scope.descricao,
@@ -124,12 +122,8 @@ angular.module('yapp')
                                         alert("Não foi possível salvar os dados.");
                                     });
                         } else {
-                            console.log("PUT");
                             var dados = {
-                                assunto: $scope.assunto,
-                                descricao: $scope.descricao,
-                                tipoChamado: $scope.tipoChamado,
-                                tipoFalha: $scope.tipoFalha
+                                usuarioAtendimento: $scope.usuarioAtendimento
                             };
                             $http.put('api/chamados/' + $scope.id, dados)
                                     .success(function () {
