@@ -132,7 +132,7 @@ public class ChamadoDAO {
             int cont;
             String sql = "UPDATE chamado SET id_usuario_atendimento = ?, id_tipo_situacao = ? WHERE id = ?;";
             PreparedStatement pst = con.prepareStatement(sql);
-            if (chamado.getUsuarioAtendimento().getId() > 0) {
+            if (chamado.getUsuarioAtendimento() != null && chamado.getUsuarioAtendimento().getId() > 0) {
                 pst.setInt(1, chamado.getUsuarioAtendimento().getId());
             } else {
                 pst.setNull(1, Types.INTEGER);

@@ -215,10 +215,18 @@ angular.module('yapp')
                 };
 
                 $scope.showGravar = function () {
-                    if (isNaN(parseInt($scope.id))) {
+                    if (isNaN(parseInt($scope.id)) || ($scope.papel.id === 1 && $scope.tipoSituacao.id === 2)) {
                         return true;
                     } else {
                         return false;
+                    }
+                };
+
+                $scope.enableAtendimento = function () {
+                    if ($scope.papel.id === 1 && $scope.tipoSituacao.id === 2) {
+                        return false;
+                    } else {
+                        return true;
                     }
                 };
 
