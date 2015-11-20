@@ -12,6 +12,7 @@ http://ticket-fabriccosta.rhcloud.com/
 |Tecnologias||
 -----------|-----
 [AngularJS](https://angularjs.org/)|![AngularJS](https://angularjs.org/img/AngularJS-large.png)
+[JasperReports](http://community.jaspersoft.com/project/jasperreports-library)|![JasperReports](http://twit88.com/blog/wp-content/uploads/2007/09/jasper.gif)
 [Java](http://www.oracle.com/br/java/overview/index.html)|![Apache Tomcat](https://upload.wikimedia.org/wikipedia/en/8/88/Java_logo.png)
 [OpenShift](https://www.openshift.com/)|![OpenShift](https://upload.wikimedia.org/wikipedia/en/3/3a/OpenShift-LogoType.svg)
 [PostgreSQL](http://www.postgresql.org/)|![PostgreSQL](https://wiki.postgresql.org/images/3/30/PostgreSQL_logo.3colors.120x120.png)
