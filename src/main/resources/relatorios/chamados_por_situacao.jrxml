@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2015-11-20T07:20:47 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Chamados por situação" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="83a4c251-74c1-4894-922e-682b24a1de5b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Ticket"/>
+	<queryString>
+		<![CDATA[SELECT
+	s.id,
+	s.descricao,
+	count(*)
+FROM
+	chamado c
+	LEFT JOIN tipo_situacao s
+		ON c.id_tipo_situacao =   s.id
+GROUP BY
+	s.id,
+	s.descricao
+ORDER BY
+	s.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="count" class="java.lang.Long"/>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="552" height="30" uuid="49bc20ec-0cf3-4920-870e-ad13279da4c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Chamados por situação]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="31" width="550" height="1" uuid="28d49f08-333d-41da-b0bb-fc062f5251e9">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="219" height="30" uuid="000d4a16-3c4b-4df8-9681-c912581846ab"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Situação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="0" width="100" height="30" uuid="4beddb45-8efd-43aa-a1f2-ae04cec90f5c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="32" width="550" height="1" uuid="380ac3a6-e8d1-4701-95cf-5ca7ebeb6b41">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="0" width="218" height="30" uuid="e2c3764f-b5bf-4b3b-abe9-d5f3738eff6c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="0" width="100" height="30" uuid="b30f1acb-4e78-4c20-a5b0-61f9a951d4fe"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="52">
+			<textField>
+				<reportElement x="430" y="6" width="100" height="30" uuid="68d53ea3-edc7-422c-bbe6-511f528944d3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="0" y="6" width="100" height="30" uuid="5d017076-36df-4d18-b703-b7bc5f60ac5e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="7" width="550" height="1" uuid="0f0b8bbc-b1ab-4b1a-a157-44cc569f383f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement x="520" y="6" width="38" height="30" uuid="10a5738e-3528-4c20-8da2-527be1002f57"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["/" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="180" y="6" width="200" height="30" uuid="8408f5b9-7845-42ab-b407-e10efc7360c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FJ ServiceDesk System]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

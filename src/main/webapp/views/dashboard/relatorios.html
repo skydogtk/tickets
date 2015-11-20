@@ -1,14 +1,16 @@
 <div>
-	<a ui-sref="overview" class="pull-right btn btn-primary btn-outline btn-rounded">Back to Overview</a>
-	<h2>Relatórios <small></small></h2>
-	<span class="glyphicon glyphicon-list-alt bg-fade"></span>
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Add Charts here</h1>
-			<p>You can use C3.js or Chart.js</p>
-			<p>
-				<a class="btn btn-primary btn-lg btn-outline btn-rounded">Learn more</a>
-			</p>
-		</div>
-	</div>
+    <h2>Relatórios <small></small></h2>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="form-group">
+                <label for="relatorio" class="col-sm-2 control-label">Tipo de relatório</label>
+                <div class="col-sm-10">
+                    <select name="relatorio" id="relatorio" required="" ng-model="relatorioSelecionado" ng-options="relatorio.rotulo for relatorio in relatorios track by relatorio.nome"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <a class="pull-right btn btn-primary btn-lg btn-outline btn-rounded" ng-click="download()">Gerar relatório</a>
+            </div>
+        </div>
+    </div>
 </div>

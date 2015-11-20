@@ -100,7 +100,8 @@ angular
                     .state('relatorios', {
                         url: '/relatorios',
                         parent: 'dashboard',
-                        templateUrl: 'views/dashboard/relatorios.html'
+                        templateUrl: 'views/dashboard/relatorios.html',
+                        controller: 'RelatoriosCtrl'
                     })
                     .state('usuarios', {
                         url: '/usuarios',
